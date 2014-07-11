@@ -8,6 +8,7 @@
     uglify = require('gulp-uglify'),
     rimraf = require('gulp-rimraf'),
     concat = require('gulp-concat'),
+    livereload = require('gulp-livereload'),
 
     paths = {
       base: './src/',
@@ -48,7 +49,12 @@
   });
 
   gulp.task('watch', function() {
-    gulp.watch(paths.src, ['build']);
+    livereload.listen();
+    gulp
+      .watch(paths.src, ['build']);
+    gulp
+      .watch(paths.dist + '/**')
+      .on('change', livereload.changed);
   });
 
   gulp.task('build', ['copy', 'minify']);
