@@ -36,11 +36,11 @@
               } else {
                 val = easeInOutExpo(animTime, from, diff, dur);
                 element.text(Math.round(val));
-                requestAnimationFrame(frame);
+                window.requestAnimationFrame(frame);
               }
             }
 
-            requestAnimationFrame(frame);
+            window.requestAnimationFrame(frame);
 
           }
           scope.$watch('value', function(newValue, oldValue) {

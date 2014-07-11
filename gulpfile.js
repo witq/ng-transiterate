@@ -1,4 +1,4 @@
-(function(require) {
+(function() {
 
   'use strict';
 
@@ -8,7 +8,6 @@
     uglify = require('gulp-uglify'),
     rimraf = require('gulp-rimraf'),
     concat = require('gulp-concat'),
-    watch = require('gulp-watch'),
 
     paths = {
       base: './src/',
@@ -56,4 +55,4 @@
 
   gulp.task('default', ['build', 'watch']);
 
-})(require);
+})();
