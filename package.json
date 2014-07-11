@@ -1,0 +1,31 @@
+{
+  "name": "ng-transiterate",
+  "version": "0.0.0",
+  "description": "Angular directive for eased iteration",
+  "main": "dist/ng-transiterate.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/witq/ng-transiterate.git"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "author": "witq",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/witq/ng-transiterate/issues"
+  },
+  "homepage": "https://github.com/witq/ng-transiterate",
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-concat": "^2.3.3",
+    "gulp-jshint": "^1.7.1",
+    "gulp-ngmin": "^0.3.0",
+    "gulp-notify": "^1.4.0",
+    "gulp-uglify": "^0.3.1",
+    "jshint-stylish": "^0.4.0"
+  }
+}
