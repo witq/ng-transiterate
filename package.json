@@ -25,7 +25,9 @@
     "gulp-jshint": "^1.7.1",
     "gulp-ngmin": "^0.3.0",
     "gulp-notify": "^1.4.0",
+    "gulp-rimraf": "^0.1.0",
     "gulp-uglify": "^0.3.1",
+    "gulp-watch": "^0.6.8",
     "jshint-stylish": "^0.4.0"
   }
 }
