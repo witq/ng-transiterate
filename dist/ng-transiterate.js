@@ -10,7 +10,6 @@
       },
       link: function(scope, element, attrs) {
 
-
         var duration = attrs.duration || 800,
           easing = attrs.easing || 'easeInOutExpo',
           fractionSize = attrs.fractionSize || 0,
@@ -24,13 +23,13 @@
               var animTime = time - startTime,
                 val;
               if (animTime >= duration) {
-                element.text($filter('number')(to, fractionSize));
+                element.text($filter('currency')(to));
                 if (endCallback && typeof endCallback === 'function') {
                   endCallback(startTime);
                 }
               } else {
                 val = easings[easing](animTime, from, diff, duration);
-                element.text($filter('number')(val, fractionSize));
+                element.text($filter('currency')(val));
                 if (stepCallback && typeof stepCallback === 'function') {
                   stepCallback(val, animTime);
                 }
@@ -45,7 +44,7 @@
 
         // Set initial value
 
-        element.text($filter('number')(0));
+        element.text($filter('currency')(0));
 
         // Start watching for value changes and transiterating
 

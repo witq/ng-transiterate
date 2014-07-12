@@ -6,11 +6,11 @@
     .module('exampleApp', [
       'ui.transiterate'
     ])
-    .controller('mainController', function($scope, $interval) {
+    .controller('mainController', function($scope) {
       $scope.val = 0;
-      $interval(function() {
-        $scope.val = Math.floor(Math.random() * 2000) + 1;
-      }, 3000);
+      $scope.add = function() {
+        $scope.val += Math.random() * 700 + 1;
+      };
     });
 
 })();
