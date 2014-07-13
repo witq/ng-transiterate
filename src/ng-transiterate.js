@@ -12,39 +12,52 @@
 
         var duration = attrs.duration || 800,
           easing = attrs.easing || 'easeInOutExpo',
-          fractionSize = attrs.fractionSize || 0,
-          transIterate = function(from, to, duration, stepCallback, endCallback) {
+          filter = attrs.filter || 'number',
+          filterParam = attrs.filterParam || undefined,
+
+          transIterate = function(from, to, duration, stepCallback, startCallback, endCallback) {
 
             var diff = to - from,
-              startTime = window.performance.now();
+              startTime = window.performance.now(),
+              raf = requestAnimFrame(step);
 
-            function frame(time) {
-              requestAnimFrame(frame);
+            function step(time) {
+              
               var animTime = time - startTime,
                 val;
-              if (animTime >= duration) {
-                element.text($filter('currency')(to));
+              
+              raf = requestAnimFrame(step);
+              
+              if (duration - animTime < 0.001) {
+                
+                element.text($filter(filter)(to, filterParam));
+                
                 if (endCallback && typeof endCallback === 'function') {
-                  endCallback(startTime);
+                  endCallback(to);
                 }
+
+                window.cancelAnimationFrame(raf);
+
               } else {
+
                 val = easings[easing](animTime, from, diff, duration);
-                element.text($filter('currency')(val));
+                element.text($filter(filter)(val, filterParam));
+                
                 if (stepCallback && typeof stepCallback === 'function') {
                   stepCallback(val, animTime);
                 }
               }
             }
 
-            // Start iterating
-
-            requestAnimFrame(frame);
+            if (startCallback && typeof startCallback === 'function') {
+              startCallback(from);
+            }
 
           };
 
         // Set initial value
 
-        element.text($filter('currency')(0));
+        element.text($filter(filter)(0, filterParam));
 
         // Start watching for value changes and transiterating
 

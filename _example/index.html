@@ -10,9 +10,12 @@
     <div
       class="value"
       transiterate="val"
-      easing="easeInOutExpo"
-      fraction-size="0">
+      filter="number"
+      duration="1000"
+      filter-param="0">
     </div>
+
+    <div ng-bind="val | number:0"></div>
 
     <a href="" ng-click="add()">Add money</a>
     <a href="" ng-click="val = 0">Reset</a>

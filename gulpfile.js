@@ -39,7 +39,7 @@
       .pipe(gulp.dest(paths.dist));
   });
 
-  gulp.task('minify', ['clean'], function() {
+  gulp.task('minify', ['lint', 'clean', 'copy'], function() {
     return gulp
       .src(paths.src)
       .pipe(min())
