@@ -1,7 +1,7 @@
 {
   "name": "ng-transiterate",
-  "version": "0.0.0",
-  "description": "Angular directive for eased iteration",
+  "version": "1.0.0",
+  "description": "AngularJS directive for eased iteration display",
   "main": "dist/ng-transiterate.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,10 +11,12 @@
     "url": "https://github.com/witq/ng-transiterate.git"
   },
   "keywords": [
-    "angular"
+    "angular",
+    "directive",
+    "animation",
+    "iteration"
   ],
   "author": "witq",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/witq/ng-transiterate/issues"
   },
