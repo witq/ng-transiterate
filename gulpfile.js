@@ -9,6 +9,7 @@
     rimraf = require('gulp-rimraf'),
     concat = require('gulp-concat'),
     livereload = require('gulp-livereload'),
+    plumber = require('gulp-plumber'),
 
     paths = {
       base: './src/',
@@ -42,6 +43,7 @@
   gulp.task('minify', ['lint', 'clean', 'copy'], function() {
     return gulp
       .src(paths.src)
+      .pipe(plumber())
       .pipe(min())
       .pipe(uglify())
       .pipe(concat('ng-transiterate.min.js'))
@@ -51,9 +53,9 @@
   gulp.task('watch', function() {
     livereload.listen();
     gulp
-      .watch(paths.src, ['build']);
+      .watch(paths.src, ['build'])
     gulp
-      .watch(paths.dist + '/**')
+      .watch(paths.dist + '/**/ng-transiterate.min.js')
       .on('change', livereload.changed);
   });
 

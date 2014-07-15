@@ -12,32 +12,56 @@
 
         var duration = attrs.duration || 800,
           easing = attrs.easing || 'easeInOutExpo',
-          filter = attrs.filter || 'number',
-          filterParam = parseInt(attrs.filterParam) || attrs.filterParam || undefined,
+          filter = attrs.filter,
+          precision = attrs.precision || 0,
+          filterParam = parseInt(attrs.filterParam) || attrs.filterParam,
+
+          setValue = function(val, filter, filterParam) {
+            if (filter && typeof filter === 'string') {
+              element.text($filter(filter)(val, filterParam));
+            } else {
+              if (precision === 0) {
+                element.text(Math.round(val));
+              } else {
+                if (precision > 0) {
+                  element.text(val.toFixed(precision));
+                } else {
+                  element.text(val);
+                }
+              }
+            }
+          },
 
           transIterate = function(from, to, duration, stepCallback, startCallback, endCallback) {
 
             var diff = to - from,
-              startTime = window.performance.now(),
+              startTime = perfNow(),
               ticker;
 
             if (startCallback && typeof startCallback === 'function') {
               startCallback(from);
             }
 
-            (function step(time) {
+            (function step(t) {
 
-              var animTime = time - startTime,
+              var animTime,
+                time = t,
                 val;
+
+              if (!t) {
+                time = perfNow();
+              }
+
+              animTime = time - startTime;
 
               ticker = requestAnimFrame(step);
 
-              if (duration - animTime < 0.001) {
-
-                element.text($filter(filter)(to, filterParam));
+              if (duration - animTime < 0.0001) {
 
                 if (endCallback && typeof endCallback === 'function') {
-                  endCallback(to);
+                  endCallback(to, filter, filterParam);
+                } else {
+                  setValue(to, filter, filterParam);
                 }
 
                 window.cancelAnimationFrame(ticker);
@@ -45,10 +69,11 @@
               } else {
 
                 val = easings[easing](animTime, from, diff, duration);
-                element.text($filter(filter)(val, filterParam));
 
                 if (stepCallback && typeof stepCallback === 'function') {
-                  stepCallback(val, animTime);
+                  stepCallback(val, filter, filterParam, animTime);
+                } else {
+                  setValue(val, filter, filterParam);
                 }
               }
             })();
@@ -57,7 +82,7 @@
 
         // Set initial value
 
-        element.text($filter(filter)(0, filterParam));
+        setValue(0, filter, filterParam);
 
         // Start watching for value changes and transiterating
 
@@ -68,6 +93,19 @@
         });
       }
     };
+  },
+
+  now = Date.now || function() {
+    return new Date.getTime();
+  },
+
+  navigationStart = now(),
+
+  perfNow = function() {
+    if (window.performance && window.performance.now) {
+      return window.performance.now();
+    }
+    return now() - navigationStart;
   },
 
   /*
@@ -198,7 +236,7 @@
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame    ||
             function(callback) {
-              window.setTimeout(callback, 1000 / 60);
+              window.setTimeout(callback, 1000 / 30);
             };
   })();
 
