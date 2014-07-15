@@ -52,4 +52,4 @@ Sets which angular filter the directive should use for display. Default is none.
 
 ## Contributing
 
-This directive is my first jab at creating something universal and reusable. If you have any ideas how to make it better, PR's and suggetions are welcome.
+This directive is my first jab at creating something universal and reusable. If you have any ideas how to make it better, PR's and suggestions are welcome.
