@@ -46,7 +46,9 @@ Sets how precisely should floating numbers be displayed. Default is 0 (display a
 ```
 #### filter
 Sets which angular filter the directive should use for display. Default is none. If a filter requires parameters, they should be passed like that: `number:3`. This sets the filter to number with optional fractionSize parameter.
+```html
 <div transiterate="value" filter="number:3"></div>
+```
 
 ## Contributing
 
