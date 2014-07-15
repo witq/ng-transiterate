@@ -4,7 +4,7 @@
 
   angular
     .module('exampleApp', [
-      'ui.transiterate'
+      'ngTransiterate'
     ])
     .controller('mainController', function($scope) {
       $scope.val = 0;

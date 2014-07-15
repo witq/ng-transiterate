@@ -251,7 +251,7 @@
 
   // Register the directive
 
-  angular.module('ui.transiterate', [])
+  angular.module('ngTransiterate', [])
     .directive('transiterate', ['$filter', directive]);
 
 })();
