@@ -12,9 +12,10 @@
 
         var duration = attrs.duration || 800,
           easing = attrs.easing || 'easeInOutExpo',
-          filter = attrs.filter,
+          filterArr,
+          filter,
+          filterParam,
           precision = attrs.precision || 0,
-          filterParam = parseInt(attrs.filterParam) || attrs.filterParam,
 
           setValue = function(val, filter, filterParam) {
             if (filter && typeof filter === 'string') {
@@ -79,6 +80,14 @@
             })();
 
           };
+
+          if (attrs.filter) {
+            filterArr = attrs.filter.split(':');
+            filter = filterArr[0];
+            if (filterArr.length > 1) {
+              filterParam = parseInt(filterArr[1]) || filterArr[1];
+            }
+          }
 
         // Set initial value
 
