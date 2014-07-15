@@ -1,6 +1,6 @@
 # ng-transiterate
 
-> AngularJS directive for eased iteration display
+AngularJS directive for eased iteration display
 
 ![illustration](_readme/test.gif)
 
@@ -40,7 +40,14 @@ Sets the easing method. This can be any of the Robert Penner's easing functions.
 <div transiterate="value" easing="easeOutQuad"></div>
 ```
 #### precision
-Sets how precisely should floating numbers be displayed. Default is 0 (display as rounded integers).
+Sets how precisely should floating numbers be displayed. Default is 0 (display as rounded integers). This parameter is used only when no filter is selected.
 ```html
 <div transiterate="value" precision="2"></div>
 ```
+#### filter
+Sets which angular filter the directive should use for display. Default is none. If a filter requires parameters, they should be passed like that: `number:3`. This sets the filter to number with optional fractionSize parameter.
+<div transiterate="value" filter="number:3"></div>
+
+## Contributing
+
+This directive is my first jab at creating something universal and reusable. If you have any ideas how to make it better, PR's and suggetions are welcome.
