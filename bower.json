@@ -1,0 +1,24 @@
+{
+  "name": "ng-transiterate-demo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/witq/ng-transiterate",
+  "authors": [
+    "witq"
+  ],
+  "description": "ng-transiterate demo page",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "ng-transiterate": "~1.0.1",
+    "angular-highlightjs": "~0.3.0"
+  }
+}
