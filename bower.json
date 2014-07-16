@@ -19,6 +19,7 @@
   "dependencies": {
     "bootstrap": "~3.2.0",
     "ng-transiterate": "~1.0.1",
-    "angular-highlightjs": "~0.3.0"
+    "angular-highlightjs": "~0.3.0",
+    "angular-route": "~1.2.20"
   }
 }

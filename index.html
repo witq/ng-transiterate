@@ -23,48 +23,18 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li ng-repeat="page in pages" check-active="{{ page.url }}">
+            <a ng-href="#{{ page.url }}" ng-bind="page.title"></a>
+          </li>
         </ul>
         <h3 class="text-muted">ng-transiterate</h3>
       </div>
 
-      <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Start animating number changes now.</p>
-        <div class="btn-group">
-          <a class="btn btn-lg btn-success" href="#" role="button">See examples</a>
-          <a class="btn btn-lg btn-primary" href="#" role="button">Start using</a>
-        </div>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-      </div>
+      <div ng-view></div>
 
       <div class="footer">
-        <p>&copy; Company 2014</p>
+        <p class="copyright">ng-transiterate maintained by <a href="https://github.com/witq">witq</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </div>
 
     </div> <!-- /container -->
@@ -76,7 +46,10 @@
     <script src="bower_components/ng-transiterate/dist/ng-transiterate.js"></script>
     <script src="bower_components/highlightjs/highlight.pack.js"></script>
     <script src="bower_components/angular-highlightjs/angular-highlightjs.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
     <!-- endbower -->
+
+    <script src="javascripts/main.js"></script>
 
   </body>
 </html>
