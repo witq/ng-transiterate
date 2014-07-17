@@ -10,6 +10,7 @@
     concat = require('gulp-concat'),
     livereload = require('gulp-livereload'),
     plumber = require('gulp-plumber'),
+    serve = require('gulp-serve'),
 
     paths = {
       base: './src/',
@@ -51,13 +52,19 @@
   });
 
   gulp.task('watch', function() {
+
     livereload.listen();
+
     gulp
-      .watch(paths.src, ['build'])
+      .watch(paths.src, ['build']);
+
     gulp
-      .watch(paths.dist + '/**/ng-transiterate.min.js')
+      .watch(paths.dist + '/**/*')
       .on('change', livereload.changed);
+
   });
+
+  gulp.task('serve', serve(['']));
 
   gulp.task('build', ['copy', 'minify']);
 

@@ -72,22 +72,18 @@
 
           };
 
-          if (attrs.filter) {
-            filterArr = attrs.filter.split(':');
-            filter = filterArr[0];
-            if (filterArr.length > 1) {
-              filterParam = parseInt(filterArr[1]) || filterArr[1];
-            }
+        if (attrs.filter) {
+          filterArr = attrs.filter.split(':');
+          filter = filterArr[0];
+          if (filterArr.length > 1) {
+            filterParam = parseInt(filterArr[1]) || filterArr[1];
           }
-
-        // Set initial value
-
-        setValue(scope.value, filter, filterParam);
+        }
 
         // Start watching for value changes and transiterating
 
         scope.$watch('value', function(newValue, oldValue) {
-          if (newValue !== oldValue) {
+          if (typeof newValue === 'number') {
             transIterate(oldValue, newValue, duration);
           }
         });
@@ -107,6 +103,17 @@
     }
     return now() - navigationStart;
   },
+
+  // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+
+  requestAnimFrame = (function() {
+    return  window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function(callback) {
+              window.setTimeout(callback, 1000 / 60);
+            };
+  })(),
 
   /*
    *
@@ -227,18 +234,7 @@
       }
       return changeInValue / 2 * (Math.sqrt(1 - (currentIteration -= 2) * currentIteration) + 1) + startValue;
     }
-  },
-
-  // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
-
-  requestAnimFrame = (function() {
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function(callback) {
-              window.setTimeout(callback, 1000 / 60);
-            };
-  })();
+  };
 
   // Register the directive
 
