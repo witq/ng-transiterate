@@ -36,26 +36,19 @@
           transIterate = function(from, to, duration, stepCallback, startCallback, endCallback) {
 
             var diff = to - from,
-              startTime = perfNow(),
-              ticker;
+              startTime = perfNow();
 
             if (startCallback && typeof startCallback === 'function') {
               startCallback(from);
             }
 
-            (function step(t) {
+            (function step() {
 
               var animTime,
-                time = t,
                 val;
 
-              if (!t) {
-                time = perfNow();
-              }
-
-              animTime = time - startTime;
-
-              ticker = requestAnimFrame(step);
+              animTime = Math.min(perfNow() - startTime, duration);
+              val = easings[easing](animTime, from, diff, duration);
 
               if (duration - animTime < 0.0001) {
 
@@ -65,11 +58,9 @@
                   setValue(to, filter, filterParam);
                 }
 
-                window.cancelAnimationFrame(ticker);
-
               } else {
 
-                val = easings[easing](animTime, from, diff, duration);
+                requestAnimFrame(step);
 
                 if (stepCallback && typeof stepCallback === 'function') {
                   stepCallback(val, filter, filterParam, animTime);
@@ -91,7 +82,7 @@
 
         // Set initial value
 
-        setValue(0, filter, filterParam);
+        setValue(scope.value, filter, filterParam);
 
         // Start watching for value changes and transiterating
 
@@ -245,7 +236,7 @@
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame    ||
             function(callback) {
-              window.setTimeout(callback, 1000 / 30);
+              window.setTimeout(callback, 1000 / 60);
             };
   })();
 
