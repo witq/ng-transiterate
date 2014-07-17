@@ -6,7 +6,7 @@ AngularJS directive for eased iteration display
 
 ## Demo
 
-A working demo can be foud on the project's site: [http://witq.github.io/ng-transiterate](http://witq.github.io/ng-transiterate)
+A working demo can be foud at the project's website: [http://witq.github.io/ng-transiterate](http://witq.github.io/ng-transiterate)
 
 ## Install
 
