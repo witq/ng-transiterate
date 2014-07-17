@@ -4,6 +4,10 @@ AngularJS directive for eased iteration display
 
 ![illustration](_readme/test.gif)
 
+## Demo
+
+A working demo can be foud on the project's site: [http://github.com/witq/ng-transiterate](http://github.com/witq/ng-transiterate)
+
 ## Install
 
 The preferred installation method is just using Bower, like that:
