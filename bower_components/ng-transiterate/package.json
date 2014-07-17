@@ -1,6 +1,6 @@
 {
   "name": "ng-transiterate",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "AngularJS directive for eased iteration display",
   "main": "dist/ng-transiterate.min.js",
   "scripts": {

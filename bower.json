@@ -21,5 +21,13 @@
     "ng-transiterate": "~1.0.1",
     "angular-highlightjs": "~0.3.0",
     "angular-route": "~1.2.20"
+  },
+  "overrides": {
+    "highlightjs": {
+      "main": [
+        "highlight.pack.js",
+        "styles/github.css"
+      ]
+    }
   }
 }

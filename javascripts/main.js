@@ -2,13 +2,12 @@
 
   'use strict';
 
-  var app = angular.module('app', ['ngRoute','ngTransiterate']),
+  var app = angular.module('app', ['ngRoute','ngTransiterate','hljs']),
       pages = [
         {
           title: 'Home',
           templateUrl: 'views/home.html',
-          url: '/home',
-          controller: 'homeController'
+          url: '/home'
         },
         {
           title: 'Installation',
@@ -59,17 +58,16 @@
     };
   });
 
-  app.controller('appController', function($scope) {
+  app.controller('appController', function($scope, $interval) {
 
     $scope.pages = pages;
 
+    $scope.value = Math.random() * 2000 + 1;
+    $interval(function() {
+      $scope.value = Math.random() * 2000 + 1;
+    }, 4000);
+
   });
 
-  app.controller('homeController', function($scope, $interval) {
-    $scope.value = 0;
-    $interval(function() {
-      $scope.value = Math.random() * 1000000 + 1;
-    }, 3000);
-  });
 
 })(window.angular);
