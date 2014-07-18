@@ -7,7 +7,7 @@
       'ngTransiterate'
     ])
     .controller('mainController', function($scope) {
-      $scope.val = 'horse';
+      $scope.val = 0;
       $scope.add = function() {
         $scope.val += Math.random() * 700 + 1;
       };

@@ -1,4 +1,4 @@
-(function() {
+(function(angular) {
 
   'use strict';
 
@@ -6,7 +6,10 @@
     return {
       restrict: 'A',
       scope: {
-        value: '=transiterate'
+        value: '=transiterate',
+        startCallback: '=',
+        stepCallback: '=',
+        endCallback: '='
       },
       link: function(scope, element, attrs) {
 
@@ -84,14 +87,21 @@
 
         scope.$watch('value', function(newValue, oldValue) {
           if (typeof newValue === 'number') {
-            transIterate(oldValue, newValue, duration);
+            if (newValue !== oldValue) {
+              if (typeof oldValue !== 'number') {
+                oldValue = 0;
+              }
+              transIterate(oldValue, newValue, duration, scope.stepCallback, scope.startCallback, scope.endCallback);
+            } else {
+              setValue(newValue, filter, filterParam);
+            }
           }
         });
       }
     };
   },
 
-  now = Date.now || function() {
+  now = window.Date.now || function() {
     return new Date.getTime();
   },
 
@@ -241,4 +251,4 @@
   angular.module('ngTransiterate', [])
     .directive('transiterate', ['$filter', directive]);
 
-})();
+})(window.angular);

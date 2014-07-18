@@ -10,11 +10,17 @@
     concat = require('gulp-concat'),
     livereload = require('gulp-livereload'),
     plumber = require('gulp-plumber'),
-    serve = require('gulp-serve'),
+    _ = require('lodash'),
+    karma = require('karma').server,
+    karmaConf = require('./test/karma-conf'),
 
     paths = {
       base: './src/',
       src: './src/**/*.js',
+      test: [
+        './src/**/*.js',
+        './test/spec/**/*.js'
+      ],
       dist: './dist/'
     };
 
@@ -56,6 +62,9 @@
     livereload.listen();
 
     gulp
+      .watch(paths.test, ['test', 'build']);
+
+    gulp
       .watch(paths.src, ['build']);
 
     gulp
@@ -64,10 +73,11 @@
 
   });
 
-  gulp.task('serve', serve(['']));
-
   gulp.task('build', ['copy', 'minify']);
-
   gulp.task('default', ['build', 'watch']);
+
+  gulp.task('test', ['lint', 'build'], function(done) {
+    karma.start(_.assign({}, karmaConf, {singleRun: true}), done);
+  });
 
 })();
