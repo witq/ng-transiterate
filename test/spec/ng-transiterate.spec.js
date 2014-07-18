@@ -202,7 +202,7 @@
         it('should accept ' + easing + ' easing', inject(function($compile) {
 
           var value = 1000;
-          element = angular.element('<div transiterate="value" easing="' + easing + '" duration="50"></div>');
+          element = angular.element('<div transiterate="value" easing="' + easing + '" duration="10"></div>');
           element = $compile(element)(scope);
           runs(function() {
             scope.value = 0;
@@ -211,7 +211,7 @@
             scope.value = value;
             scope.$digest();
           });
-          waits(50 + lag);
+          waits(10 + lag);
           runs(function() {
             expect(element.text()).toBe(Math.round(value) + '');
           });
@@ -267,33 +267,32 @@
           scope.start = function(from) {
             output = from;
           };
-          element = angular.element('<div transiterate="value" duration="200" start-callback="start" duration="50"></div>');
+          element = angular.element('<div transiterate="value" duration="200" start-callback="start" duration="0"></div>');
           element = $compile(element)(scope);
           scope.$digest();
           scope.value = 100;
           scope.$digest();
         });
-        waits(50 + lag);
+        waits(lag);
         runs(function() {
           expect(output).toBe(154);
         });
       }));
 
       it('should fire endCallback once, providing the end value', inject(function($compile) {
-        var output;
+        var output = 1;
         runs(function() {
           scope.value = 154;
           scope.end = function(to) {
-            console.log(end);
             output = to;
           };
-          element = angular.element('<div transiterate="value" duration="200" end-callback="end" duration="50"></div>');
+          element = angular.element('<div transiterate="value" duration="200" end-callback="end" duration="0"></div>');
           element = $compile(element)(scope);
           scope.$digest();
           scope.value = 100;
           scope.$digest();
         });
-        waits(50 + lag);
+        waits(500 + lag);
         runs(function() {
           expect(output).toBe(100);
         });
