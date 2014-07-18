@@ -279,6 +279,25 @@
         });
       }));
 
+      it('should fire stepCallback, providing the current value', inject(function($compile) {
+        var output = 0;
+        runs(function() {
+          scope.value = 0;
+          scope.step = function(val) {
+            output += val;
+          };
+          element = angular.element('<div transiterate="value" step-callback="step" duration="200"></div>');
+          element = $compile(element)(scope);
+          scope.$digest();
+          scope.value = 10;
+          scope.$digest();
+        });
+        waits(200 + lag);
+        runs(function() {
+          expect(output).toBeGreaterThan(10);
+        });
+      }));
+
       it('should fire endCallback once, providing the end value', inject(function($compile) {
         var output = 1;
         runs(function() {
@@ -286,13 +305,13 @@
           scope.end = function(to) {
             output = to;
           };
-          element = angular.element('<div transiterate="value" duration="200" end-callback="end" duration="0"></div>');
+          element = angular.element('<div transiterate="value" end-callback="end" duration="0"></div>');
           element = $compile(element)(scope);
           scope.$digest();
           scope.value = 100;
           scope.$digest();
         });
-        waits(500 + lag);
+        waits(lag);
         runs(function() {
           expect(output).toBe(100);
         });
@@ -303,7 +322,7 @@
     describe('old browser fallback', function() {
 
       it('should animate in browser without performance.now', inject(function($compile) {
-        window.performance.now = null;
+        window.performance.now = undefined;
         var value = 1000;
         element = angular.element('<div transiterate="value"></div>');
         element = $compile(element)(scope);
