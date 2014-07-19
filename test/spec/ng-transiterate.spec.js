@@ -319,28 +319,6 @@
 
     });
 
-    describe('old browser fallback', function() {
-
-      it('should animate in browser without performance.now', inject(function($compile) {
-        window.performance.now = undefined;
-        var value = 1000;
-        element = angular.element('<div transiterate="value"></div>');
-        element = $compile(element)(scope);
-        runs(function() {
-          scope.value = 0;
-          scope.$digest();
-          expect(element.text()).toBe('0');
-          scope.value = value;
-          scope.$digest();
-        });
-        waits(800 + lag);
-        runs(function() {
-          expect(element.text()).toBe(Math.round(value) + '');
-        });
-      }));
-
-    });
-
   });
 
 })();
