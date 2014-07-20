@@ -13,7 +13,7 @@
       },
       link: function(scope, element, attrs) {
 
-        var duration = attrs.duration || 800,
+        var duration = attrs.duration || 800, // TODO: add duration autodetection
           easing = attrs.easing || 'easeInOutExpo',
           filterArr,
           filter,

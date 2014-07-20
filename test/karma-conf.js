@@ -4,14 +4,14 @@
 
   var karmaConf = {
     browsers: [
-      'Chrome'
+      'PhantomJS'
     ],
     frameworks: [
       'jasmine'
     ],
     files: [
-      'https://code.angularjs.org/1.2.20/angular.js',
-      'https://code.angularjs.org/1.2.20/angular-mocks.js',
+      './test/lib/angular.min.js',
+      './test/lib/angular-mocks.js',
       './dist/ng-transiterate.js',
       './test/spec/**/*.js'
     ],
