@@ -13,6 +13,7 @@
       './test/lib/angular.min.js',
       './test/lib/angular-mocks.js',
       './dist/ng-transiterate.js',
+      './dist/ng-transiterate.easings.js',
       './test/spec/**/*.js'
     ],
     preprocessors: {
