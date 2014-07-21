@@ -85,20 +85,20 @@
 
             if (duration - animTime < 0.0001) {
 
+              setValue(to, filter, filterParam);
+
               if (endCallback && typeof endCallback === 'function') {
                 endCallback(to, filter, filterParam);
-              } else {
-                setValue(to, filter, filterParam);
               }
 
             } else {
 
               utils.requestAnimFrame(step);
 
+              setValue(val, filter, filterParam);
+
               if (stepCallback && typeof stepCallback === 'function') {
                 stepCallback(val, filter, filterParam, animTime);
-              } else {
-                setValue(val, filter, filterParam);
               }
             }
           };
