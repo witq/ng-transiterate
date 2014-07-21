@@ -55,7 +55,7 @@ Remember to load the script file in your view:
 ```
 If you decide to also load the additional easing equations, add this:
 ```html
-<script src-"bower_components/ng-transiterate/dist/ng-transiterate.easings.js"></script>
+<script src="bower_components/ng-transiterate/dist/ng-transiterate.easings.js"></script>
 ```
 Then, reference the module (`ngTransiterate`) in your app:
 ```javascript
@@ -94,22 +94,22 @@ Sets which angular filter the directive should use for display. Default is none.
 ```
 
 ### Setting defaults
-The directive comes with some default settings. If you are planning to use it in many places in your app, you can change those defaults in your `.run()` block, as the transiterateDefaults service can be injected and used as transiterateDefaultsProvider. It has a `.setDefault(option, value)` which can be used to set global app values that all instances of the directive will use:
+The directive comes with some default settings. If you are planning to use it in many places in your app, you can change those defaults in your `.config()` block, as the transiterateDefaults service can be injected and used as transiterateDefaultsProvider. It has a `.setDefault(option, value)` method, which can be used to set global app values that all instances of the directive will use:
 
 ```javascript
 angular.module('myApp', ['ngTransiterate'])
-  .run(function(transiterateDefaultsProvider) {
+  .config(function(transiterateDefaultsProvider) {
     transiterateDefaultsProvider.setDefault('duration', 3000);
 });
 ```
 If you want to set multiple options, you can chain the calls:
 ```javascript
 angular.module('myApp', ['ngTransiterate'])
-  .run(function(transiterateDefaultsProvider) {
+  .config(function(transiterateDefaultsProvider) {
     transiterateDefaultsProvider
       .setDefault('duration', 6000)
       .setDefault('easing', 'easeOutQuad')
-      .setDefault('filter', 'number:3')
+      .setDefault('filter', 'number:3');
 });
 ```
 Yeah, I know, the provider name is a bit too long.
