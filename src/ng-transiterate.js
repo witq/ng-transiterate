@@ -2,7 +2,10 @@
 
   'use strict';
 
-  var directive = function ($filter, $injector) {
+  var directive,
+      utils;
+
+  directive = function ($filter, $injector) {
     return {
       restrict: 'A',
       scope: {
@@ -13,69 +16,32 @@
       },
       link: function(scope, element, attrs) {
 
-        var duration = attrs.duration || 800, // TODO: add duration autodetection
-          easing = attrs.easing || 'linearEase',
-          easings,
-          ngTransiterateEasings,
-          filterArr,
-          filter,
-          filterParam,
-          precision = attrs.precision || 0,
+        var defaultEasing,
+            duration = attrs.duration || 800,
+            easing = attrs.easing || 'linearEase',
+            easings,
+            filter,
+            filterArr,
+            filterParam,
+            ngTransiterateEasings,
+            precision = attrs.precision || 0,
+            setValue,
+            transIterate;
 
-          setValue = function(val, filter, filterParam) {
-            if (filter && typeof filter === 'string') {
-              element.text($filter(filter)(val, filterParam));
-            } else {
-              if (precision === 0) {
-                element.text(Math.round(val));
-              } else {
-                if (precision > 0) {
-                  element.text(val.toFixed(precision));
-                } else {
-                  element.text(val);
-                }
-              }
-            }
-          },
+        defaultEasing = {
+          linearEase: function(currentIteration, startValue, changeInValue, totalIterations) {
+            return changeInValue * currentIteration / totalIterations + startValue;
+          }
+        };
 
-          transIterate = function(from, to, duration, stepCallback, startCallback, endCallback) {
+        // check if easings file is included and load it if it is
 
-            var diff = to - from,
-              startTime = perfNow();
-
-            if (startCallback && typeof startCallback === 'function') {
-              startCallback(from);
-            }
-
-            (function step() {
-
-              var animTime,
-                val;
-
-              animTime = Math.min(perfNow() - startTime, duration);
-              val = easings[easing](animTime, from, diff, duration);
-
-              if (duration - animTime < 0.0001) {
-
-                if (endCallback && typeof endCallback === 'function') {
-                  endCallback(to, filter, filterParam);
-                } else {
-                  setValue(to, filter, filterParam);
-                }
-
-              } else {
-
-                requestAnimFrame(step);
-
-                if (stepCallback && typeof stepCallback === 'function') {
-                  stepCallback(val, filter, filterParam, animTime);
-                } else {
-                  setValue(val, filter, filterParam);
-                }
-              }
-            })();
-
-          };
+        if ($injector.has('ngTransiterateEasings')) {
+          ngTransiterateEasings = $injector.get('ngTransiterateEasings');
+          easings = angular.extend({}, ngTransiterateEasings, defaultEasing);
+        } else {
+          easings = defaultEasing;
+        }
 
         // interpret filter input
 
@@ -87,19 +53,63 @@
           }
         }
 
-        // check if easings file is included and load it if it is
+        setValue = function(val, filter, filterParam) {
+          if (filter && typeof filter === 'string') {
+            element.text($filter(filter)(val, filterParam));
+          } else {
+            if (precision === 0) {
+              element.text(Math.round(val));
+            } else {
+              if (precision > 0) {
+                element.text(val.toFixed(precision));
+              } else {
+                element.text(val);
+              }
+            }
+          }
+        };
 
-        if($injector.has('ngTransiterateEasings')) {
-          ngTransiterateEasings = $injector.get('ngTransiterateEasings');
-        }
+        transIterate = function(from, to, duration, stepCallback, startCallback, endCallback) {
 
-        easings = angular.extend({}, ngTransiterateEasings, {
+          var diff = to - from,
+            startTime = utils.perfNow(),
+            step;
 
-          linearEase: function(currentIteration, startValue, changeInValue, totalIterations) {
-            return changeInValue * currentIteration / totalIterations + startValue;
+          step = function() {
+
+            var animTime,
+              val;
+
+            animTime = Math.min(utils.perfNow() - startTime, duration);
+            val = easings[easing](animTime, from, diff, duration);
+
+            if (duration - animTime < 0.0001) {
+
+              if (endCallback && typeof endCallback === 'function') {
+                endCallback(to, filter, filterParam);
+              } else {
+                setValue(to, filter, filterParam);
+              }
+
+            } else {
+
+              utils.requestAnimFrame(step);
+
+              if (stepCallback && typeof stepCallback === 'function') {
+                stepCallback(val, filter, filterParam, animTime);
+              } else {
+                setValue(val, filter, filterParam);
+              }
+            }
+          };
+
+          if (startCallback && typeof startCallback === 'function') {
+            startCallback(from);
           }
 
-        });
+          utils.requestAnimFrame(step);
+
+        };
 
         // Start watching for value changes and transiterating
 
@@ -117,31 +127,45 @@
         });
       }
     };
-  },
+  };
 
-  now = Date.now || function() {
-    return new Date().getTime();
-  },
+  utils = (function() {
 
-  navigationStart = now(),
+    var navigationStart,
+        now,
+        perfNow,
+        requestAnimFrame;
 
-  perfNow = function() {
+    now = Date.now || function() {
+      return new Date().getTime();
+    };
+    navigationStart = now();
     if (window.performance && window.performance.now) {
-      return window.performance.now();
+      perfNow = function() {
+        return window.performance.now();
+      };
+    } else {
+      perfNow = function() {
+        return now() - navigationStart;
+      };
     }
-    return now() - navigationStart;
-  },
+    requestAnimFrame = (function() {
+      return window.requestAnimationFrame  ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        function(callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+    }());
 
-  // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+    return {
+      now: now,
+      navigationStart: navigationStart,
+      perfNow: perfNow,
+      requestAnimFrame: requestAnimFrame
+    };
 
-  requestAnimFrame = (function() {
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function(callback) {
-              window.setTimeout(callback, 1000 / 60);
-            };
-  })();
+  }());
 
   // Register the directive
 

@@ -5,7 +5,7 @@
   describe('transiterate directive', function() {
 
     var element,
-        lag = 1000 / 30, // account for last animation frame lag
+        lag = 1000 / 60, // account for last animation frame lag
         scope;
 
     beforeEach(module('ngTransiterate'));
@@ -202,7 +202,7 @@
         it('should accept ' + easing + ' easing', inject(function($compile) {
 
           var value = 1000;
-          element = angular.element('<div transiterate="value" easing="' + easing + '" duration="10"></div>');
+          element = angular.element('<div transiterate="value" easing="' + easing + '" duration="5"></div>');
           element = $compile(element)(scope);
           runs(function() {
             scope.value = 0;
@@ -211,7 +211,7 @@
             scope.value = value;
             scope.$digest();
           });
-          waits(10 + lag);
+          waits(5 + lag);
           runs(function() {
             expect(element.text()).toBe(Math.round(value) + '');
           });

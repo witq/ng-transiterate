@@ -19,6 +19,9 @@
     preprocessors: {
       './dist/ng-transiterate.js': [
         'coverage'
+      ],
+      './dist/ng-transiterate.easings.js': [
+        'coverage'
       ]
     },
     reporters: [
