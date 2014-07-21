@@ -1,4 +1,4 @@
-/*
+/*!
  *
  * TERMS OF USE - EASING EQUATIONS
  *

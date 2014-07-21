@@ -1,4 +1,4 @@
-(function(angular, window) {
+(function(angular, window, console) {
 
   'use strict';
 
@@ -20,6 +20,7 @@
             duration = attrs.duration || TransiterateDefaults.duration,
             easing = attrs.easing || TransiterateDefaults.easing,
             easings,
+            easingFunc,
             filter,
             filterArr,
             filterParam,
@@ -39,8 +40,15 @@
         if ($injector.has('transiterateEasings')) {
           transiterateEasings = $injector.get('transiterateEasings');
           easings = angular.extend({}, transiterateEasings, defaultEasing);
+          easingFunc = easings[easing];
         } else {
           easings = defaultEasing;
+          if (easings[easing]) {
+            easingFunc = easings[easing];
+          } else {
+            easingFunc = easings.linearEase;
+            console.error('ngTransiterate: Additional easing equations not loaded, using the default. http://witq.github.io/ng-transiterate/#/installation');
+          }
         }
 
         // interpret filter input
@@ -87,7 +95,7 @@
               val;
 
             animTime = Math.min(utils.now() - startTime, duration);
-            val = easings[easing](animTime, from, diff, duration);
+            val = easingFunc(animTime, from, diff, duration);
 
             if (duration - animTime < 0.0001) {
 
@@ -117,7 +125,12 @@
 
           // request next requestAnimationFrame tick and enter the loop
 
-          utils.requestAnimationFrame.call(window, step);
+          if (utils.requestAnimationFrame && typeof utils.requestAnimationFrame === 'function') {
+            utils.requestAnimationFrame.call(window, step);
+          } else {
+            setValue(to, filter, filterParam);
+            console.error('ngTransiterate: requestAnimationFrame and setTimeout not supported.');
+          }
 
         };
 
@@ -201,4 +214,4 @@
     })
     .directive('transiterate', ['$filter', '$injector', 'TransiterateDefaults', directive]);
 
-})(window.angular, window);
+})(window.angular, window, console);
