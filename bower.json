@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "ng-transiterate": "~1.0.1",
+    "ng-transiterate": "~1.1",
     "angular-highlightjs": "~0.3.0",
     "angular-route": "~1.2.20"
   },
@@ -27,6 +27,12 @@
       "main": [
         "highlight.pack.js",
         "styles/github.css"
+      ]
+    },
+    "ng-transiterate": {
+      "main": [
+        "dist/ng-transiterate.min.js",
+        "dist/ng-transiterate.easings.min.js"
       ]
     }
   }
