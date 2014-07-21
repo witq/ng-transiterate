@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, window) {
 
   'use strict';
 
@@ -72,7 +72,7 @@
         transIterate = function(from, to, duration, stepCallback, startCallback, endCallback) {
 
           var diff = to - from,
-            startTime = utils.perfNow(),
+            startTime = utils.now(),
             step;
 
           step = function() {
@@ -80,7 +80,7 @@
             var animTime,
               val;
 
-            animTime = Math.min(utils.perfNow() - startTime, duration);
+            animTime = Math.min(utils.now() - startTime, duration);
             val = easings[easing](animTime, from, diff, duration);
 
             if (duration - animTime < 0.0001) {
@@ -93,7 +93,7 @@
 
             } else {
 
-              utils.requestAnimFrame(step);
+              utils.requestAnimationFrame.call(window, step);
 
               setValue(val, filter, filterParam);
 
@@ -103,11 +103,15 @@
             }
           };
 
+          // call the start callback
+
           if (startCallback && typeof startCallback === 'function') {
             startCallback(from);
           }
 
-          utils.requestAnimFrame(step);
+          // request next requestAnimationFrame tick and enter the loop
+
+          utils.requestAnimationFrame.call(window, step);
 
         };
 
@@ -129,12 +133,14 @@
     };
   };
 
+  // create some basic utilities, do browser features check
+
   utils = (function() {
 
     var navigationStart,
         now,
         perfNow,
-        requestAnimFrame;
+        requestAnimationFrame;
 
     now = Date.now || function() {
       return new Date().getTime();
@@ -149,7 +155,7 @@
         return now() - navigationStart;
       };
     }
-    requestAnimFrame = (function() {
+    requestAnimationFrame = (function() {
       return window.requestAnimationFrame  ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame    ||
@@ -159,10 +165,8 @@
     }());
 
     return {
-      now: now,
-      navigationStart: navigationStart,
-      perfNow: perfNow,
-      requestAnimFrame: requestAnimFrame
+      now: perfNow,
+      requestAnimationFrame: requestAnimationFrame
     };
 
   }());
@@ -172,4 +176,4 @@
   angular.module('ngTransiterate', [])
     .directive('transiterate', ['$filter', '$injector', directive]);
 
-})(window.angular);
+})(window.angular, window);
