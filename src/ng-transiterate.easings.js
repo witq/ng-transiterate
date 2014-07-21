@@ -121,7 +121,7 @@
   };
 
   angular.module('ngTransiterate')
-    .factory('ngTransiterateEasings', function() {
+    .factory('transiterateEasings', function() {
       return easings;
     });
 
