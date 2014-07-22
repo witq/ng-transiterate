@@ -9,7 +9,7 @@
       karma       = require('karma').server,
       karmaConf   = require('./test/karma-conf'),
       livereload  = require('gulp-livereload'),
-      min         = require('gulp-ngmin'),
+      ngAnnotate  = require('gulp-ng-annotate'),
       pkg         = require('./package.json'),
       plumber     = require('gulp-plumber'),
       uglify      = require('gulp-uglify'),
@@ -64,7 +64,9 @@
     return gulp
       .src(paths.src)
       .pipe(plumber())
-      .pipe(min())
+      .pipe(ngAnnotate({
+        single_quotes: true
+      }))
       .pipe(uglify({
         preserveComments: 'some'
       }))
