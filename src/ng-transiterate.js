@@ -5,7 +5,7 @@
   var directive,
       utils;
 
-  directive = function ($filter, $injector, TransiterateDefaults) {
+  directive = function ($filter, $injector, transiterateDefaults) {
     return {
       restrict: 'A',
       scope: {
@@ -17,15 +17,15 @@
       link: function(scope, element, attrs) {
 
         var defaultEasing,
-            duration = attrs.duration || TransiterateDefaults.duration,
-            easing = attrs.easing || TransiterateDefaults.easing,
+            duration = attrs.duration || transiterateDefaults.duration,
+            easing = attrs.easing || transiterateDefaults.easing,
             easings,
             easingFunc,
             filter,
             filterArr,
             filterParam,
             transiterateEasings,
-            precision = attrs.precision || TransiterateDefaults.precision,
+            precision = attrs.precision || transiterateDefaults.precision,
             setValue,
             transIterate;
 
@@ -59,8 +59,8 @@
           if (filterArr.length > 1) {
             filterParam = parseInt(filterArr[1]) || filterArr[1];
           }
-        } else if (TransiterateDefaults.filter) {
-          filterArr = TransiterateDefaults.filter.split(':');
+        } else if (transiterateDefaults.filter) {
+          filterArr = transiterateDefaults.filter.split(':');
           filter = filterArr[0];
           if (filterArr.length > 1) {
             filterParam = parseInt(filterArr[1] || filterArr[1]);
@@ -193,7 +193,7 @@
   // Register the defaults service and then the directive
 
   angular.module('ngTransiterate', [])
-    .provider('TransiterateDefaults', {
+    .provider('transiterateDefaults', {
 
       defaults: {
         duration: 800,
@@ -212,6 +212,6 @@
       }
 
     })
-    .directive('transiterate', ['$filter', '$injector', 'TransiterateDefaults', directive]);
+    .directive('transiterate', ['$filter', '$injector', 'transiterateDefaults', directive]);
 
 })(window.angular, window, console);
