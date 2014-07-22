@@ -96,7 +96,7 @@
   gulp.task('build', ['minify', 'copy']);
   gulp.task('default', ['build', 'watch']);
 
-  gulp.task('test', ['lint'], function(done) {
+  gulp.task('test', ['build'], function(done) {
     karma.start(_.assign({}, karmaConf, {singleRun: true}), done);
   });
 

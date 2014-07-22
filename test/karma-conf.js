@@ -12,15 +12,15 @@
     files: [
       './test/lib/angular.min.js',
       './test/lib/angular-mocks.js',
-      './src/ng-transiterate.js',
-      './src/ng-transiterate.easings.js',
+      './dist/ng-transiterate.min.js',
+      './dist/ng-transiterate.easings.min.js',
       './test/spec/**/*.js'
     ],
     preprocessors: {
-      './src/ng-transiterate.js': [
+      './dist/ng-transiterate.js': [
         'coverage'
       ],
-      './src/ng-transiterate.easings.js': [
+      './dist/ng-transiterate.easings.js': [
         'coverage'
       ]
     },
