@@ -1,4 +1,4 @@
-# ng-transiterate
+# ng-transiterate [![Build Status](https://travis-ci.org/witq/ng-transiterate.svg?branch=master)](https://travis-ci.org/witq/ng-transiterate)
 
 AngularJS directive for eased iteration display
 
@@ -117,5 +117,3 @@ Yeah, I know, the provider name is a bit too long.
 ## Contributing
 
 This directive is my first jab at creating something universal and reusable. If you have any ideas how to make it better, PR's and suggestions are welcome.
-
-I have written some tests that cover most of the directive's functionality. When preparing a PR, make sure your version passes those tests. After running `npm install`, tests can be run using `npm test` or `gulp test` commands.
