@@ -15,9 +15,9 @@
           url: '/installation'
         },
         {
-          title: 'Examples',
-          templateUrl: 'views/examples.html',
-          url: '/examples'
+          title: 'Usage',
+          templateUrl: 'views/usage.html',
+          url: '/usage'
         }
       ];
 

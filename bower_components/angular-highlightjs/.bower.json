@@ -28,6 +28,5 @@
   },
   "_source": "git://github.com/pc035860/angular-highlightjs.git",
   "_target": "~0.3.0",
-  "_originalSource": "angular-highlightjs",
-  "_direct": true
+  "_originalSource": "angular-highlightjs"
 }

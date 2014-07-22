@@ -1,11 +1,27 @@
 <h3>Install using bower</h3>
+
 <p>The preferred installation method is just using Bower, like that:</p>
+
 <hljs language="bash">$ bower install ng-transiterate</hljs>
-<p>Remember to load the script file in your view, after angular:</p>
+
+<p>Remember to load the script file in your view, after angular itself:</p>
+
 <hljs><script src="bower_components/ng-transiterate/dist/ng-transiterate.js"></script></hljs>
+
+<p><b>Important:</b> If you want to use easing equations other than the default "linearEase", you also have to include the optional easings file:</p>
+
+<hljs><script src="bower_components/ng-transiterate/dist/ng-transiterate.easings.js"></script></hljs>
+
 <p>Then, reference the module (ngTransiterate) in your app:</p>
+
 <hljs>angular.module('myApp', ['ngTransiterate']);</hljs>
-<p>After completing these steps, you can use the <b>transiterate</b> directive anywhere in your app.</p>
+
+<p>After completing these steps, you can use the <b>transiterate</b> directive anywhere in your app:</p>
+
+<div class="example text-muted" transiterate="value"></div>
+<hljs><div transiterate="value"></div></hljs>
+
 <h3>Download latest release</h3>
+
 <p><a class="zip_download_link" href="https://github.com/witq/ng-transiterate/zipball/master">Download as a .zip file</a></p>
 <p><a class="tar_download_link" href="https://github.com/witq/ng-transiterate/tarball/master">Download as a tar.gz file</a></p>
