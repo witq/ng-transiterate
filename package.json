@@ -4,7 +4,7 @@
   "description": "AngularJS directive for eased iteration display",
   "main": "dist/ng-transiterate.min.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp ci"
   },
   "repository": {
     "type": "git",

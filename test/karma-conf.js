@@ -2,38 +2,16 @@
 
   'use strict';
 
-  var karmaConf = {
+  var conf = {
     browsers: [
       'PhantomJS'
     ],
     frameworks: [
       'jasmine'
     ],
-    files: [
-      './test/lib/angular.min.js',
-      './test/lib/angular-mocks.js',
-      './dist/ng-transiterate.min.js',
-      './dist/ng-transiterate.easings.min.js',
-      './test/spec/**/*.js'
-    ],
-    preprocessors: {
-      './dist/ng-transiterate.js': [
-        'coverage'
-      ],
-      './dist/ng-transiterate.easings.js': [
-        'coverage'
-      ]
-    },
-    reporters: [
-      'spec',
-      'coverage'
-    ],
-    coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
-    }
+    singleRun: true
   };
 
-  module.exports = karmaConf;
+  module.exports = conf;
 
 })(module);
