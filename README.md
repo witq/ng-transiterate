@@ -1,6 +1,8 @@
-# ng-transiterate [![Build Status](https://travis-ci.org/witq/ng-transiterate.svg?branch=master)](https://travis-ci.org/witq/ng-transiterate)
+# ng-transiterate
 
-AngularJS directive for eased iteration display
+[![Build Status](https://travis-ci.org/witq/ng-transiterate.svg?branch=master)](https://travis-ci.org/witq/ng-transiterate)
+
+> AngularJS directive for eased iteration display
 
 ![illustration](_readme/test.gif)
 
@@ -112,8 +114,13 @@ angular.module('myApp', ['ngTransiterate'])
       .setDefault('filter', 'number:3');
 });
 ```
-Yeah, I know, the provider name is a bit too long.
 
 ## Contributing
 
 This directive is my first jab at creating something universal and reusable. If you have any ideas how to make it better, PR's and suggestions are welcome.
+
+## License
+
+Copyright (c) 2014 Witek Galecki
+
+Licensed under the MIT License
