@@ -12,12 +12,12 @@
 <hljs><div transiterate="value" duration="3000"></div></hljs>
 
 <h4>easing</h4>
-<p>Sets the easing method. This can be any of the Robert Penner's easing functions. Default it "easeInOutExpo".</p>
-<div class="example text-muted" transiterate="value" easing="easeOutQuad"></div>
-<hljs><div transiterate="value" easing="easeOutQuad"></div></hljs>
+<p>Sets the easing method. This can be any of the Robert Penner's easing functions. Default it "linearEase".</p>
+<div class="example text-muted" transiterate="value" easing="easeInOutExpo"></div>
+<hljs><div transiterate="value" easing="easeInOutExpo"></div></hljs>
 
 <h4>precision</h4>
-<p>Sets how precisely should floating numbers be displayed. Default is 0 (display as rounded integers). This parameter is used only when no filter is selected. <b>Setting this to -1 disables roudning completly.</b></p>
+<p>Sets how precisely should floating numbers be displayed. Default is 0 (display as rounded integers). This parameter is used only when no filter is selected. <b>Setting this to -1 disables rouding completly.</b></p>
 <div class="example text-muted" transiterate="value" precision="2"></div>
 <hljs><div transiterate="value" precision="2"></div></hljs>
 <div class="example text-muted" transiterate="value" precision="-1"></div>
@@ -35,3 +35,27 @@
 
 <div class="example text-muted" transiterate="value" filter="currency"></div>
 <hljs><div transiterate="value" filter="currency"></div></hljs>
+
+<h3>Setting default values</h3>
+
+<p>If you have a lot of instances of the directive and they all are supposed to behave the same, setting their options via attributes may become troublesome. This is where the <code>trainsiterateDefaultsProvider</code> comes in. It enables you to set default values for all directive instances across your application/page. They can still be overriden with attributes when needed.</p>
+<p>The provider is available for injection in the <code>app.config()</code> block. The values are set with the <code>.setDefault(option, value)</code> method. The directive then uses the service internally to read the values.</p>
+
+<hljs>
+angular.module('myApp', ['ngTransiterate'])
+  .config(function(transiterateDefaultsProvider) {
+    transiterateDefaultsProvider.setDefault('duration', 3000);
+});
+</hljs>
+
+<p>You can set any of the options described above and chain calls to the <code>.setDefault(option, value)</code> method, like so:</p>
+
+<hljs>
+angular.module('myApp', ['ngTransiterate'])
+  .config(function(transiterateDefaultsProvider) {
+    transiterateDefaultsProvider
+      .setDefault('duration', 6000)
+      .setDefault('easing', 'easeOutQuad')
+      .setDefault('filter', 'number:3');
+});
+</hljs>
