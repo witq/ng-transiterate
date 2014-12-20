@@ -2,19 +2,19 @@
 
   'use strict';
 
-  var _           = require('lodash'),
-      gulp        = require('gulp'),
-      header      = require('gulp-header'),
-      jshint      = require('gulp-jshint'),
-      karma       = require('karma').server,
-      karmaConf   = require('./test/karma-conf'),
-      livereload  = require('gulp-livereload'),
-      min         = require('gulp-ngmin'),
-      pkg         = require('./package.json'),
-      plumber     = require('gulp-plumber'),
-      uglify      = require('gulp-uglify'),
-      rename      = require('gulp-rename'),
-      rimraf      = require('gulp-rimraf'),
+  var gulp          = require('gulp'),
+      header        = require('gulp-header'),
+      jshint        = require('gulp-jshint'),
+      karma         = require('karma').server,
+      karmaConfCi   = require('./test/karma-conf-ci'),
+      karmaConfTest = require('./test/karma-conf-test'),
+      livereload    = require('gulp-livereload'),
+      ngAnnotate    = require('gulp-ng-annotate'),
+      pkg           = require('./package.json'),
+      plumber       = require('gulp-plumber'),
+      uglify        = require('gulp-uglify'),
+      rename        = require('gulp-rename'),
+      rimraf        = require('gulp-rimraf'),
 
       banner,
       paths;
@@ -23,6 +23,7 @@
   ' * <%= pkg.name %> - <%= pkg.description %>',
   ' * @version v<%= pkg.version %>',
   ' * @link <%= pkg.homepage %>',
+  ' * @license <%= pkg.license.type %>',
   ' */',
   '',''].join('\n');
 
@@ -64,7 +65,9 @@
     return gulp
       .src(paths.src)
       .pipe(plumber())
-      .pipe(min())
+      .pipe(ngAnnotate({
+        single_quotes: true
+      }))
       .pipe(uglify({
         preserveComments: 'some'
       }))
@@ -94,8 +97,12 @@
   gulp.task('build', ['minify', 'copy']);
   gulp.task('default', ['build', 'watch']);
 
-  gulp.task('test', ['lint'], function(done) {
-    karma.start(_.assign({}, karmaConf, {singleRun: true}), done);
+  gulp.task('test', ['build'], function(done) {
+    karma.start(karmaConfTest, done);
+  });
+
+  gulp.task('ci', ['build'], function(done) {
+    karma.start(karmaConfCi, done);
   });
 
 })();

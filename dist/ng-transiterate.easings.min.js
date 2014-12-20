@@ -1,7 +1,8 @@
 /*!
  * ng-transiterate - AngularJS directive for eased iteration display
- * @version v1.0.2
+ * @version v1.1.2
  * @link https://witq.github.io/ng-transiterate
+ * @license MIT
  */
 
 /*!

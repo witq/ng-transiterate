@@ -1,25 +1,29 @@
 {
   "name": "ng-transiterate",
-  "version": "1.0.2",
-  "homepage": "https://witq.github.io/ng-transiterate",
-  "authors": [
-    "witq"
-  ],
+  "version": "1.1.2",
   "description": "AngularJS directive for eased iteration display",
-  "main": "./dist/ng-transiterate.js",
+  "homepage": "https://witq.github.io/ng-transiterate",
   "keywords": [
     "angular",
     "directive",
     "animation",
     "iteration"
   ],
+  "author": "Witek Galecki",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/witq/ng-transiterate/master/LICENSE"
+  },
+  "main": "./dist/ng-transiterate.js",
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "_example",
+    "_readme",
+    "src"
   ],
   "dependencies": {
     "angular": "~1.2"

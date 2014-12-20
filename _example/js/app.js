@@ -6,9 +6,10 @@
     .module('exampleApp', [
       'ngTransiterate'
     ])
-    .config(function(TransiterateDefaultsProvider) {
-      TransiterateDefaultsProvider
-        .setDefault('duration', 400)
+    .config(function(transiterateDefaultsProvider) {
+      transiterateDefaultsProvider
+        .setDefault('duration', 2500)
+        .setDefault('easing', 'easeInOutExpo')
         .setDefault('filter', 'currency');
     })
     .controller('mainController', function($scope) {
