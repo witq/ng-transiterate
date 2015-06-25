@@ -14,7 +14,7 @@
       plumber       = require('gulp-plumber'),
       uglify        = require('gulp-uglify'),
       rename        = require('gulp-rename'),
-      rimraf        = require('gulp-rimraf'),
+      del           = require('del'),
 
       banner,
       paths;
@@ -44,12 +44,10 @@
       .pipe(jshint.reporter('jshint-stylish'));
   });
 
-  gulp.task('clean', function() {
-    return gulp
-      .src(paths.dist + '**/*.js', {
-        read: false
-      })
-      .pipe(rimraf());
+  gulp.task('clean', function(next) {
+    return del([
+      paths.dist + '**/*.js'
+    ], next);
   });
 
   gulp.task('copy', ['clean'], function() {
